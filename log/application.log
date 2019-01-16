@@ -1,0 +1,241 @@
+16-01-2019 00:06:11.329 [http-nio-4503-exec-9] ERROR c.org.worker.controller.ErrorHandler.internalError - Internal error
+16-01-2019 00:09:37.380 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 8996 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 00:09:37.401 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 00:17:03.558 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 6200 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 00:17:03.567 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 00:17:06.802 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarted - Started OfficePdfWorkerApplication in 4.199 seconds (JVM running for 5.031)
+16-01-2019 00:17:17.078 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.uploadExcelFile - About to upload the file 'excel'
+16-01-2019 00:17:17.079 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - About to write file to 'tmp\d9165e7a-738a-4611-a96f-b295b57ca1c5'
+16-01-2019 00:17:17.087 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - File was written successfully
+16-01-2019 00:17:17.087 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.uploadExcelFile - The file has been uploaded to 'tmp\d9165e7a-738a-4611-a96f-b295b57ca1c5'
+16-01-2019 00:17:19.349 [http-nio-4503-exec-9] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - Got converting request 'com.org.worker.controller.dto.ConvertingRequest@6058d6c8'
+16-01-2019 00:17:19.351 [http-nio-4503-exec-9] INFO  c.o.w.service.ExcelWorkerServiceImpl.openExcelWorkbook - About to open workbook 'tmp\d9165e7a-738a-4611-a96f-b295b57ca1c5'
+16-01-2019 00:17:19.570 [http-nio-4503-exec-9] INFO  c.o.w.service.ExcelWorkerServiceImpl.sheets - Number of sheets '2'
+16-01-2019 00:17:19.625 [http-nio-4503-exec-9] INFO  c.o.worker.service.DefaultPdfWriter.setupWriter - About to save data to 'pdf\8e853ac9-af60-4c05-b3d9-419ba02f9696.pdf'
+16-01-2019 00:17:19.710 [http-nio-4503-exec-9] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:17:19.850 [http-nio-4503-exec-9] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:17:19.904 [http-nio-4503-exec-9] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:17:19.905 [http-nio-4503-exec-9] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:17:19.982 [http-nio-4503-exec-9] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:17:19.984 [http-nio-4503-exec-9] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:17:20.016 [http-nio-4503-exec-9] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - File has been converted
+16-01-2019 00:17:20.016 [http-nio-4503-exec-9] INFO  c.o.w.repository.FileRepositoryImpl.removeFile - About to remove file by path 'tmp\d9165e7a-738a-4611-a96f-b295b57ca1c5'
+16-01-2019 00:17:22.434 [http-nio-4503-exec-1] INFO  c.o.w.controller.DocumentController.file - Getting file '8e853ac9-af60-4c05-b3d9-419ba02f9696.pdf'
+16-01-2019 00:17:22.436 [http-nio-4503-exec-1] INFO  c.o.w.controller.DocumentController.file - Got file 'C:\Users\amadeus\Desktop\programing\OfficePdfWorker\pdf\8e853ac9-af60-4c05-b3d9-419ba02f9696.pdf'
+16-01-2019 00:25:30.628 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 1772 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 00:25:30.638 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 00:25:36.564 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarted - Started OfficePdfWorkerApplication in 7.303 seconds (JVM running for 8.442)
+16-01-2019 00:25:49.937 [http-nio-4503-exec-5] INFO  c.o.w.controller.DocumentController.uploadExcelFile - About to upload the file 'excel'
+16-01-2019 00:25:49.937 [http-nio-4503-exec-5] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - About to write file to 'tmp\064cf4e0-a676-4bf8-8370-83d43acf7573'
+16-01-2019 00:25:49.942 [http-nio-4503-exec-5] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - File was written successfully
+16-01-2019 00:25:49.943 [http-nio-4503-exec-5] INFO  c.o.w.controller.DocumentController.uploadExcelFile - The file has been uploaded to 'tmp\064cf4e0-a676-4bf8-8370-83d43acf7573'
+16-01-2019 00:25:51.942 [http-nio-4503-exec-6] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - Got converting request 'com.org.worker.controller.dto.ConvertingRequest@2743b92a'
+16-01-2019 00:25:51.945 [http-nio-4503-exec-6] INFO  c.o.w.service.ExcelWorkerServiceImpl.openExcelWorkbook - About to open workbook 'tmp\064cf4e0-a676-4bf8-8370-83d43acf7573'
+16-01-2019 00:25:52.178 [http-nio-4503-exec-6] INFO  c.o.w.service.ExcelWorkerServiceImpl.sheets - Number of sheets '2'
+16-01-2019 00:25:52.231 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.setupWriter - About to save data to 'pdf\54421af5-70e7-4d33-b0cd-f19a233f20b1.pdf'
+16-01-2019 00:25:52.294 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:25:52.436 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:25:52.491 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:25:52.491 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:25:52.541 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:25:52.542 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:25:52.554 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:25:52.555 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:25:52.584 [http-nio-4503-exec-6] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - File has been converted
+16-01-2019 00:25:52.584 [http-nio-4503-exec-6] INFO  c.o.w.repository.FileRepositoryImpl.removeFile - About to remove file by path 'tmp\064cf4e0-a676-4bf8-8370-83d43acf7573'
+16-01-2019 00:25:54.752 [http-nio-4503-exec-9] INFO  c.o.w.controller.DocumentController.file - Getting file '54421af5-70e7-4d33-b0cd-f19a233f20b1.pdf'
+16-01-2019 00:25:54.755 [http-nio-4503-exec-9] INFO  c.o.w.controller.DocumentController.file - Got file 'C:\Users\amadeus\Desktop\programing\OfficePdfWorker\pdf\54421af5-70e7-4d33-b0cd-f19a233f20b1.pdf'
+16-01-2019 00:29:20.240 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 4084 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 00:29:20.246 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 00:29:23.980 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarted - Started OfficePdfWorkerApplication in 4.719 seconds (JVM running for 5.536)
+16-01-2019 00:29:39.804 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.uploadExcelFile - About to upload the file 'excel'
+16-01-2019 00:29:39.805 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - About to write file to 'tmp\4087bf9d-6130-46c0-88e7-dfd284658df8'
+16-01-2019 00:29:39.809 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - File was written successfully
+16-01-2019 00:29:39.810 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.uploadExcelFile - The file has been uploaded to 'tmp\4087bf9d-6130-46c0-88e7-dfd284658df8'
+16-01-2019 00:29:42.291 [http-nio-4503-exec-6] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - Got converting request 'com.org.worker.controller.dto.ConvertingRequest@5ffd8a9'
+16-01-2019 00:29:42.293 [http-nio-4503-exec-6] INFO  c.o.w.service.ExcelWorkerServiceImpl.openExcelWorkbook - About to open workbook 'tmp\4087bf9d-6130-46c0-88e7-dfd284658df8'
+16-01-2019 00:29:42.526 [http-nio-4503-exec-6] INFO  c.o.w.service.ExcelWorkerServiceImpl.sheets - Number of sheets '2'
+16-01-2019 00:29:42.578 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.setupWriter - About to save data to 'pdf\b10e7c37-be64-4e2f-a955-eb61a9772f73.pdf'
+16-01-2019 00:29:42.641 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:29:42.752 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:29:42.817 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:29:42.818 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:29:42.865 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:29:42.867 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:29:42.876 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:29:42.877 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:29:42.904 [http-nio-4503-exec-6] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - File has been converted
+16-01-2019 00:29:42.905 [http-nio-4503-exec-6] INFO  c.o.w.repository.FileRepositoryImpl.removeFile - About to remove file by path 'tmp\4087bf9d-6130-46c0-88e7-dfd284658df8'
+16-01-2019 00:29:45.405 [http-nio-4503-exec-9] INFO  c.o.w.controller.DocumentController.file - Getting file 'b10e7c37-be64-4e2f-a955-eb61a9772f73.pdf'
+16-01-2019 00:29:45.408 [http-nio-4503-exec-9] INFO  c.o.w.controller.DocumentController.file - Got file 'C:\Users\amadeus\Desktop\programing\OfficePdfWorker\pdf\b10e7c37-be64-4e2f-a955-eb61a9772f73.pdf'
+16-01-2019 00:32:00.369 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 1320 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 00:32:00.426 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 00:32:07.713 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarted - Started OfficePdfWorkerApplication in 8.751 seconds (JVM running for 9.894)
+16-01-2019 00:32:21.034 [http-nio-4503-exec-4] INFO  c.o.w.controller.DocumentController.uploadExcelFile - About to upload the file 'excel'
+16-01-2019 00:32:21.035 [http-nio-4503-exec-4] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - About to write file to 'tmp\5fa8c57b-aafa-4cc6-b801-49bbf4ef2bdf'
+16-01-2019 00:32:21.042 [http-nio-4503-exec-4] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - File was written successfully
+16-01-2019 00:32:21.042 [http-nio-4503-exec-4] INFO  c.o.w.controller.DocumentController.uploadExcelFile - The file has been uploaded to 'tmp\5fa8c57b-aafa-4cc6-b801-49bbf4ef2bdf'
+16-01-2019 00:32:23.321 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - Got converting request 'com.org.worker.controller.dto.ConvertingRequest@5c4926a2'
+16-01-2019 00:32:23.322 [http-nio-4503-exec-8] INFO  c.o.w.service.ExcelWorkerServiceImpl.openExcelWorkbook - About to open workbook 'tmp\5fa8c57b-aafa-4cc6-b801-49bbf4ef2bdf'
+16-01-2019 00:32:23.549 [http-nio-4503-exec-8] INFO  c.o.w.service.ExcelWorkerServiceImpl.sheets - Number of sheets '2'
+16-01-2019 00:32:23.602 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.setupWriter - About to save data to 'pdf\255258f6-53b1-450f-97ae-a2e34987af7c.pdf'
+16-01-2019 00:32:23.666 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:32:23.820 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:32:23.932 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:32:23.932 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:32:23.994 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:32:24.001 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:32:24.013 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:32:24.014 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:32:24.045 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - File has been converted
+16-01-2019 00:32:24.047 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.removeFile - About to remove file by path 'tmp\5fa8c57b-aafa-4cc6-b801-49bbf4ef2bdf'
+16-01-2019 00:32:26.669 [http-nio-4503-exec-7] INFO  c.o.w.controller.DocumentController.file - Getting file '255258f6-53b1-450f-97ae-a2e34987af7c.pdf'
+16-01-2019 00:32:26.670 [http-nio-4503-exec-7] INFO  c.o.w.controller.DocumentController.file - Got file 'C:\Users\amadeus\Desktop\programing\OfficePdfWorker\pdf\255258f6-53b1-450f-97ae-a2e34987af7c.pdf'
+16-01-2019 00:34:22.598 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 6256 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 00:34:22.644 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 00:34:26.353 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarted - Started OfficePdfWorkerApplication in 4.943 seconds (JVM running for 5.82)
+16-01-2019 00:34:35.809 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.uploadExcelFile - About to upload the file 'excel'
+16-01-2019 00:34:35.810 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - About to write file to 'tmp\e8dc3932-98b6-49f4-8c28-b1e813628a94'
+16-01-2019 00:34:35.816 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - File was written successfully
+16-01-2019 00:34:35.816 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.uploadExcelFile - The file has been uploaded to 'tmp\e8dc3932-98b6-49f4-8c28-b1e813628a94'
+16-01-2019 00:34:38.338 [http-nio-4503-exec-6] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - Got converting request 'com.org.worker.controller.dto.ConvertingRequest@16cb67ca'
+16-01-2019 00:34:38.340 [http-nio-4503-exec-6] INFO  c.o.w.service.ExcelWorkerServiceImpl.openExcelWorkbook - About to open workbook 'tmp\e8dc3932-98b6-49f4-8c28-b1e813628a94'
+16-01-2019 00:34:38.583 [http-nio-4503-exec-6] INFO  c.o.w.service.ExcelWorkerServiceImpl.sheets - Number of sheets '2'
+16-01-2019 00:34:38.636 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.setupWriter - About to save data to 'pdf\0dd7377f-0de0-42c7-961d-dc2bc4af9f25.pdf'
+16-01-2019 00:34:38.736 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:34:38.855 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:34:38.919 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:34:38.920 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:34:38.962 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:34:38.963 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:34:38.975 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:34:38.976 [http-nio-4503-exec-6] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:34:39.006 [http-nio-4503-exec-6] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - File has been converted
+16-01-2019 00:34:39.006 [http-nio-4503-exec-6] INFO  c.o.w.repository.FileRepositoryImpl.removeFile - About to remove file by path 'tmp\e8dc3932-98b6-49f4-8c28-b1e813628a94'
+16-01-2019 00:34:41.643 [http-nio-4503-exec-1] INFO  c.o.w.controller.DocumentController.file - Getting file '0dd7377f-0de0-42c7-961d-dc2bc4af9f25.pdf'
+16-01-2019 00:34:41.646 [http-nio-4503-exec-1] INFO  c.o.w.controller.DocumentController.file - Got file 'C:\Users\amadeus\Desktop\programing\OfficePdfWorker\pdf\0dd7377f-0de0-42c7-961d-dc2bc4af9f25.pdf'
+16-01-2019 00:37:15.140 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 9680 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 00:37:15.149 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 00:37:21.807 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarted - Started OfficePdfWorkerApplication in 7.743 seconds (JVM running for 8.573)
+16-01-2019 00:37:40.878 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.uploadExcelFile - About to upload the file 'excel'
+16-01-2019 00:37:40.879 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - About to write file to 'tmp\82941aca-c31d-4c6e-9eb4-cc5723340091'
+16-01-2019 00:37:40.887 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - File was written successfully
+16-01-2019 00:37:40.888 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.uploadExcelFile - The file has been uploaded to 'tmp\82941aca-c31d-4c6e-9eb4-cc5723340091'
+16-01-2019 00:37:43.552 [http-nio-4503-exec-7] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - Got converting request 'com.org.worker.controller.dto.ConvertingRequest@3abe5bc8'
+16-01-2019 00:37:43.553 [http-nio-4503-exec-7] INFO  c.o.w.service.ExcelWorkerServiceImpl.openExcelWorkbook - About to open workbook 'tmp\82941aca-c31d-4c6e-9eb4-cc5723340091'
+16-01-2019 00:37:43.759 [http-nio-4503-exec-7] INFO  c.o.w.service.ExcelWorkerServiceImpl.sheets - Number of sheets '2'
+16-01-2019 00:37:43.818 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.setupWriter - About to save data to 'pdf\c310ca1f-0a40-4d8b-b6eb-99e2a038482a.pdf'
+16-01-2019 00:37:43.879 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:43.992 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.045 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.045 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.092 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.093 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.096 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.097 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.100 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.101 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.104 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.107 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.111 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.111 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.114 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.115 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.118 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.119 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.122 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.123 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.127 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.129 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:37:44.151 [http-nio-4503-exec-7] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - File has been converted
+16-01-2019 00:37:44.151 [http-nio-4503-exec-7] INFO  c.o.w.repository.FileRepositoryImpl.removeFile - About to remove file by path 'tmp\82941aca-c31d-4c6e-9eb4-cc5723340091'
+16-01-2019 00:37:46.848 [http-nio-4503-exec-10] INFO  c.o.w.controller.DocumentController.file - Getting file 'c310ca1f-0a40-4d8b-b6eb-99e2a038482a.pdf'
+16-01-2019 00:37:46.849 [http-nio-4503-exec-10] INFO  c.o.w.controller.DocumentController.file - Got file 'C:\Users\amadeus\Desktop\programing\OfficePdfWorker\pdf\c310ca1f-0a40-4d8b-b6eb-99e2a038482a.pdf'
+16-01-2019 00:51:46.947 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 8836 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 00:51:46.957 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 00:51:51.140 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarted - Started OfficePdfWorkerApplication in 5.311 seconds (JVM running for 6.351)
+16-01-2019 00:52:37.239 [http-nio-4503-exec-9] INFO  c.o.w.controller.DocumentController.uploadExcelFile - About to upload the file 'excel'
+16-01-2019 00:52:37.240 [http-nio-4503-exec-9] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - About to write file to 'tmp\65a77dc2-1d20-47e7-be8c-51adf92be2fe'
+16-01-2019 00:52:37.251 [http-nio-4503-exec-9] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - File was written successfully
+16-01-2019 00:52:37.251 [http-nio-4503-exec-9] INFO  c.o.w.controller.DocumentController.uploadExcelFile - The file has been uploaded to 'tmp\65a77dc2-1d20-47e7-be8c-51adf92be2fe'
+16-01-2019 00:52:45.043 [http-nio-4503-exec-2] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - Got converting request 'com.org.worker.controller.dto.ConvertingRequest@661c8f05'
+16-01-2019 00:52:45.045 [http-nio-4503-exec-2] INFO  c.o.w.service.ExcelWorkerServiceImpl.openExcelWorkbook - About to open workbook 'tmp\65a77dc2-1d20-47e7-be8c-51adf92be2fe'
+16-01-2019 00:52:45.314 [http-nio-4503-exec-2] INFO  c.o.w.service.ExcelWorkerServiceImpl.sheets - Number of sheets '2'
+16-01-2019 00:52:45.378 [http-nio-4503-exec-2] INFO  c.o.worker.service.DefaultPdfWriter.setupWriter - About to save data to 'pdf\a7e02ccc-c143-4277-bfc1-40ff00feb2e1.pdf'
+16-01-2019 00:52:45.454 [http-nio-4503-exec-2] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:52:45.577 [http-nio-4503-exec-2] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:52:45.630 [http-nio-4503-exec-2] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:52:45.631 [http-nio-4503-exec-2] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:54:06.209 [http-nio-4503-exec-2] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:54:06.210 [http-nio-4503-exec-2] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:54:19.718 [http-nio-4503-exec-2] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:54:19.721 [http-nio-4503-exec-2] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:54:19.750 [http-nio-4503-exec-2] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - File has been converted
+16-01-2019 00:54:19.750 [http-nio-4503-exec-2] INFO  c.o.w.repository.FileRepositoryImpl.removeFile - About to remove file by path 'tmp\65a77dc2-1d20-47e7-be8c-51adf92be2fe'
+16-01-2019 00:54:34.825 [http-nio-4503-exec-4] INFO  c.o.w.controller.DocumentController.file - Getting file 'a7e02ccc-c143-4277-bfc1-40ff00feb2e1.pdf'
+16-01-2019 00:54:34.828 [http-nio-4503-exec-4] INFO  c.o.w.controller.DocumentController.file - Got file 'C:\Users\amadeus\Desktop\programing\OfficePdfWorker\pdf\a7e02ccc-c143-4277-bfc1-40ff00feb2e1.pdf'
+16-01-2019 00:55:43.552 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 10100 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 00:55:43.560 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 00:55:50.071 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarted - Started OfficePdfWorkerApplication in 7.84 seconds (JVM running for 9.155)
+16-01-2019 00:56:20.279 [http-nio-4503-exec-9] INFO  c.o.w.controller.DocumentController.uploadExcelFile - About to upload the file 'excel'
+16-01-2019 00:56:20.280 [http-nio-4503-exec-9] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - About to write file to 'tmp\d2584ef7-30d0-4f70-ba67-9f285bcd9e5e'
+16-01-2019 00:56:20.288 [http-nio-4503-exec-9] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - File was written successfully
+16-01-2019 00:56:20.289 [http-nio-4503-exec-9] INFO  c.o.w.controller.DocumentController.uploadExcelFile - The file has been uploaded to 'tmp\d2584ef7-30d0-4f70-ba67-9f285bcd9e5e'
+16-01-2019 00:56:22.349 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - Got converting request 'com.org.worker.controller.dto.ConvertingRequest@bf00f9b'
+16-01-2019 00:56:22.350 [http-nio-4503-exec-8] INFO  c.o.w.service.ExcelWorkerServiceImpl.openExcelWorkbook - About to open workbook 'tmp\d2584ef7-30d0-4f70-ba67-9f285bcd9e5e'
+16-01-2019 00:56:22.578 [http-nio-4503-exec-8] INFO  c.o.w.service.ExcelWorkerServiceImpl.sheets - Number of sheets '2'
+16-01-2019 00:56:22.631 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.setupWriter - About to save data to 'pdf\3eca3305-5c4a-407b-8a88-19f72c49badd.pdf'
+16-01-2019 00:56:22.701 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:56:22.827 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:56:22.881 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:56:22.881 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:56:22.936 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:56:22.942 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:56:22.951 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:56:22.952 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:56:22.976 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - File has been converted
+16-01-2019 00:56:22.976 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.removeFile - About to remove file by path 'tmp\d2584ef7-30d0-4f70-ba67-9f285bcd9e5e'
+16-01-2019 00:56:25.042 [http-nio-4503-exec-7] INFO  c.o.w.controller.DocumentController.file - Getting file '3eca3305-5c4a-407b-8a88-19f72c49badd.pdf'
+16-01-2019 00:56:25.044 [http-nio-4503-exec-7] INFO  c.o.w.controller.DocumentController.file - Got file 'C:\Users\amadeus\Desktop\programing\OfficePdfWorker\pdf\3eca3305-5c4a-407b-8a88-19f72c49badd.pdf'
+16-01-2019 00:57:50.936 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 5096 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 00:57:50.962 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 00:57:56.119 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarted - Started OfficePdfWorkerApplication in 6.414 seconds (JVM running for 7.811)
+16-01-2019 00:58:21.859 [http-nio-4503-exec-7] INFO  c.o.w.controller.DocumentController.uploadExcelFile - About to upload the file 'excel'
+16-01-2019 00:58:21.859 [http-nio-4503-exec-7] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - About to write file to 'tmp\6a950bce-b6e5-40d6-a147-0190d0cdad58'
+16-01-2019 00:58:21.867 [http-nio-4503-exec-7] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - File was written successfully
+16-01-2019 00:58:21.867 [http-nio-4503-exec-7] INFO  c.o.w.controller.DocumentController.uploadExcelFile - The file has been uploaded to 'tmp\6a950bce-b6e5-40d6-a147-0190d0cdad58'
+16-01-2019 00:58:24.481 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - Got converting request 'com.org.worker.controller.dto.ConvertingRequest@58999c19'
+16-01-2019 00:58:24.483 [http-nio-4503-exec-8] INFO  c.o.w.service.ExcelWorkerServiceImpl.openExcelWorkbook - About to open workbook 'tmp\6a950bce-b6e5-40d6-a147-0190d0cdad58'
+16-01-2019 00:58:24.717 [http-nio-4503-exec-8] INFO  c.o.w.service.ExcelWorkerServiceImpl.sheets - Number of sheets '2'
+16-01-2019 00:58:24.781 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.setupWriter - About to save data to 'pdf\25a381c5-fd10-43c8-bff0-a74d5de725db.pdf'
+16-01-2019 00:58:24.849 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:58:24.977 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:58:25.048 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 00:58:25.048 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:00:22.736 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:00:22.739 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:00:22.754 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:00:22.758 [http-nio-4503-exec-8] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:00:22.793 [http-nio-4503-exec-8] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - File has been converted
+16-01-2019 01:00:22.794 [http-nio-4503-exec-8] INFO  c.o.w.repository.FileRepositoryImpl.removeFile - About to remove file by path 'tmp\6a950bce-b6e5-40d6-a147-0190d0cdad58'
+16-01-2019 01:02:33.207 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarting - Starting OfficePdfWorkerApplication on Machine-1 with PID 6800 (C:\Users\amadeus\Desktop\programing\OfficePdfWorker\target\classes started by amadeus in C:\Users\amadeus\Desktop\programing\OfficePdfWorker)
+16-01-2019 01:02:33.217 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+16-01-2019 01:02:38.292 [main] INFO  c.o.w.OfficePdfWorkerApplication.logStarted - Started OfficePdfWorkerApplication in 6.452 seconds (JVM running for 7.455)
+16-01-2019 01:02:46.344 [http-nio-4503-exec-5] INFO  c.o.w.controller.DocumentController.uploadExcelFile - About to upload the file 'excel'
+16-01-2019 01:02:46.345 [http-nio-4503-exec-5] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - About to write file to 'tmp\ea57a9ee-0177-4da7-bac7-5ee370dd5644'
+16-01-2019 01:02:46.353 [http-nio-4503-exec-5] INFO  c.o.w.repository.FileRepositoryImpl.saveFile - File was written successfully
+16-01-2019 01:02:46.353 [http-nio-4503-exec-5] INFO  c.o.w.controller.DocumentController.uploadExcelFile - The file has been uploaded to 'tmp\ea57a9ee-0177-4da7-bac7-5ee370dd5644'
+16-01-2019 01:02:48.034 [http-nio-4503-exec-7] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - Got converting request 'com.org.worker.controller.dto.ConvertingRequest@b5d465b'
+16-01-2019 01:02:48.035 [http-nio-4503-exec-7] INFO  c.o.w.service.ExcelWorkerServiceImpl.openExcelWorkbook - About to open workbook 'tmp\ea57a9ee-0177-4da7-bac7-5ee370dd5644'
+16-01-2019 01:02:48.275 [http-nio-4503-exec-7] INFO  c.o.w.service.ExcelWorkerServiceImpl.sheets - Number of sheets '2'
+16-01-2019 01:02:48.329 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.setupWriter - About to save data to 'pdf\0f5ce53e-3e16-4bc6-9ea0-4c09986c2144.pdf'
+16-01-2019 01:02:48.396 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:02:48.530 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:02:48.594 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:02:48.594 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:06:34.771 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:06:34.773 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:06:34.794 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:06:34.799 [http-nio-4503-exec-7] INFO  c.o.worker.service.DefaultPdfWriter.getFont - Using system font 'C:\Windows\Fonts\arial.ttf'
+16-01-2019 01:06:34.856 [http-nio-4503-exec-7] INFO  c.o.w.controller.DocumentController.convertDocumentToPdf - File has been converted
+16-01-2019 01:06:34.857 [http-nio-4503-exec-7] INFO  c.o.w.repository.FileRepositoryImpl.removeFile - About to remove file by path 'tmp\ea57a9ee-0177-4da7-bac7-5ee370dd5644'

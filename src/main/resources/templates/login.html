@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <title>Авторизация</title>
+</head>
+<body>
+    <form id="form-login" th:action="@{/users/login}" method="post">
+        <div class="container">
+            <label for="username"><b>Логин</b></label>
+            <input id="username" type="text" name="username" placeholder="Введите логин" required>
+
+            <label for="password"><b>Пароль</b></label>
+            <input id="password" type="password" name="password" placeholder="Введите пароль" required>
+
+            <button class="btn btn-success btn-lg" type="submit">Войти</button>
+        </div>
+    </form>
+</body>
+</html>

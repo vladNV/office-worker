@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <title>Обработка отчета</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row" id="uploading">
+            <div class="description text-justify col-12 text-shift">
+                <span>Загружать файл только в формате .xls, .xlsx ! </span><br>
+                <span>После того как файл  выбран, нажать кнопку загрузить и перейти к шагу 2.</span>
+                <div id="excel-file-status"></div>
+            </div>
+            <div id="form-excel-uploading" class="col-12 input-group shift">
+                <input type="file" name="excel" id="excel-file" 
+                class="form-control" title="Файл" placeholder="Выберите файл в формате xls или xlsx">
+                <span class="input-group-btn">
+                    <button type="button" name="btn-name" class="btn btn-success" onclick="uploadFile()">Загрузить файл</button>
+                </span>
+            </div>
+        </div>
+        <div class="row" id="converting">
+            <div class="description text-justify col-12 text-shift">
+                <span>Выбрать один из доступных шаблонов и начать трансформацию</span>            
+            </div>
+            <div id="form-template" class="col-12 shift">
+                <select class="form-control" name="pdfTemplate" id="pdf-template"></select> <br>
+                <button type="button" name="btn-name" class="btn btn-success" onclick="convert()">Получить Pdf</button>
+            </div>
+        </div>
+        <div class="row" id="downloading">
+            <div class="description text-justify col-12 text-shift">
+                <span>Нажмите по ссылке для скачивания файла.</span><br>
+                <span>Файл можно будет скачать и позже, для этого сохраните ссылку.</span>
+            </div>
+            <div id="download-links" class="col-12 shift">
+
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 44px;">
+            <form method="POST" action="/users/logout">
+                <button type="submit" class="btn btn-primary btn-lg">Закончить работу</button>
+            </form>
+        </div>
+    </div>
+    <div id="mask" class="lmask" style="display:none;"></div>
+    <script th:src="@{/static/js/worker.js}"></script>
+    <script>getAllPdfTemplates()</script>
+</body>
+</html>
