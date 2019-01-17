@@ -1,9 +1,9 @@
 package com.org.worker.service;
 
-import com.org.worker.service.model.PdfTemplate;
+import com.org.worker.service.model.PdfType;
 
 public interface FileConvertingService {
 
-    String convertToPdf(String path, PdfTemplate pdfTemplate);
+    String convertToPdf(String path, PdfType pdfType);
 
 }

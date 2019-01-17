@@ -7,7 +7,7 @@ import com.org.worker.exception.LimitExceededException;
 import com.org.worker.repository.FileRepository;
 import com.org.worker.repository.PlainTextRepository;
 import com.org.worker.service.FileConvertingService;
-import com.org.worker.service.model.PdfTemplate;
+import com.org.worker.service.model.PdfType;
 import com.org.worker.util.FileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,7 +79,7 @@ public class DocumentController {
         LOG.info("Got converting request '{}'", convertingRequest);
         String pathToDownloading = fileConvertingService
                 .convertToPdf(convertingRequest.getPath(),
-                        PdfTemplate.valueOf(convertingRequest.getPdfTemplate()));
+                        PdfType.valueOf(convertingRequest.getPdfTemplate()));
         LOG.info("File has been converted");
         fileRepository.removeFile(convertingRequest.getPath());
 
@@ -97,8 +96,8 @@ public class DocumentController {
 
     @GetMapping(path = "/templates")
     public ResponseEntity<List<String>> getAllTemplates() {
-        return ResponseEntity.ok(Arrays.stream(PdfTemplate.values())
-                .map(PdfTemplate::toString)
+        return ResponseEntity.ok(Arrays.stream(PdfType.values())
+                .map(PdfType::toString)
                 .collect(Collectors.toList()));
     }
 

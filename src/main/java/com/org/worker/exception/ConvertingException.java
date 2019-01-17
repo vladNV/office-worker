@@ -5,4 +5,7 @@ public class ConvertingException extends RuntimeException {
         super(message);
     }
 
+    public ConvertingException(Throwable cause) {
+        super(cause);
+    }
 }

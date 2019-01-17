@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 
 @Slf4j
 @Component
-public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
+public class PdfRedWriter extends AbstractPdfWriter implements PdfService {
     @Autowired
     private DefaultPdfPageEventHelper pdfPageEventHelper;
 
@@ -56,12 +56,6 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         return filename;
     }
 
-    @Override
-    public PdfType keyOfImplementation() {
-        return PdfType.PDF_MAIN;
-    }
-
-
     private PdfWriter getWriter(Document document, String path) {
         LOG.info("About to setup writer data by '{}' path", path);
         try {
@@ -71,6 +65,11 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         } catch (DocumentException | FileNotFoundException e) {
             throw new FileWriterException("Error occurred while opening document", e);
         }
+    }
+
+    @Override
+    public PdfType keyOfImplementation() {
+        return PdfType.PDF_RED;
     }
 
     private void writeTable(Document document, String[][] table, Chunk under1) throws DocumentException {
@@ -121,11 +120,11 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         Font font = getPdfProperties().getDefaultFont();
         Font font2 = getPdfProperties().getDefaultFont();
 
-        PdfBuilderUtils.changeFont(font, 20, BaseColor.BLUE, Font.BOLD);
+        PdfBuilderUtils.changeFont(font, 20, BaseColor.RED, Font.BOLD);
 
         document.add(PdfBuilderUtils.buildParagraph("НАЦИОНАЛЬНЫЙ ИНСТИТУТ МЕТРОЛОГИИ", font, Element.ALIGN_CENTER));
 
-        PdfBuilderUtils.changeFont(font, 16, BaseColor.BLUE, Font.NORMAL);
+        PdfBuilderUtils.changeFont(font, 16, BaseColor.RED, Font.NORMAL);
         document.add(PdfBuilderUtils.buildParagraph("National metrological institute", font, Element.ALIGN_CENTER));
         document.add(Chunk.NEWLINE);
 
@@ -154,7 +153,7 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         c2.addElement(ch1);
 
         font.setSize(8);
-        font.setColor(BaseColor.BLUE);
+        font.setColor(BaseColor.RED);
         Phrase ph1 = new Phrase("Наименование эталона / средства измерения / идентификация", font);
         ph1.add(Chunk.NEWLINE);
         ph1.add("Description of measurement standard / measuring instrument / identification");
@@ -177,7 +176,7 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         c4.addElement(ch1);
         font.setSize(8);
         font.setColor(BaseColor.BLACK);
-        font2.setColor(BaseColor.BLUE);
+        font2.setColor(BaseColor.RED);
         ph1 = new Phrase("Информация о заказчике, адрес", font2);
         ph1.add(Chunk.NEWLINE);
         ph1.add("Name of the customer, address");
@@ -200,7 +199,7 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         ch1.setUnderline(0.2f, -2f);
         c6.addElement(ch1);
         font.setSize(8);
-        font.setColor(BaseColor.BLUE);
+        font.setColor(BaseColor.RED);
         ph1 = new Phrase("Наименнование метода / идентификация", font);
         ph1.add(Chunk.NEWLINE);
         ph1.add("Name of the method / identification");
@@ -216,7 +215,7 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         under1.setUnderline(1f, -2.0f);
         document.add(under1);
         document.add(Chunk.NEWLINE);
-        
+
         document.add(Chunk.NEWLINE);
         document.add(PdfBuilderUtils.buildParagraph("Все измерения имеют прослеживаемость к единицам Международной системы SI, "
                 + "которые воспроизводятся национальными эталонам НМИ. В"
@@ -287,7 +286,7 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         document.add(under1);
 
         font.setSize(8);
-        font.setColor(BaseColor.BLUE);
+        font.setColor(BaseColor.RED);
         document.add(PdfBuilderUtils.buildParagraph("Адрес НМИ / Address of NMI / "
                 + "Телефон, факс, е-почта, web- сайт / Phone, fax, e-mail, website", font));
         document.newPage();
@@ -314,7 +313,7 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         ch5.setUnderline(0.2f, -2f);
         c8.addElement(ch5);
         font2.setSize(8);
-        font2.setColor(BaseColor.BLUE);
+        font2.setColor(BaseColor.RED);
         Phrase ph3 = new Phrase("Наименование эталонов и их статус / идентификация "
                 + "/ доказательство прослеживаемости", font2);
         ph3.add(Chunk.NEWLINE);
@@ -338,7 +337,7 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         ch6.setUnderline(0.2f, -2f);
         c10.addElement(ch6);
         font.setSize(8);
-        font.setColor(BaseColor.BLUE);
+        font.setColor(BaseColor.RED);
         Phrase ph4 = new Phrase("Условия окружающей среды и другие влияющие факторы", font);
         ph4.add(Chunk.NEWLINE);
         ph4.add("Environmental conditions and other influence parameters");
@@ -390,7 +389,7 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         ch7.setUnderline(0.2f, -2f);
         c17.addElement(ch7);
         font.setSize(8);
-        font.setColor(BaseColor.BLUE);
+        font.setColor(BaseColor.RED);
         Phrase ph5 = new Phrase("состояние объекта калибровки / регулировка и/или " +
                 "ремонт объекта калибровки до его калибровки /\n" +
                 "рекомендуемый межкалибровочный интервал по требованию заказчика", font);

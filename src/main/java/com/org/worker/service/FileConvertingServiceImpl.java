@@ -3,7 +3,7 @@ package com.org.worker.service;
 import com.org.worker.config.ExcelProperties;
 import com.org.worker.exception.ConvertingException;
 import com.org.worker.repository.FileRepository;
-import com.org.worker.service.model.PdfTemplate;
+import com.org.worker.service.model.PdfType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +26,9 @@ public class FileConvertingServiceImpl implements FileConvertingService {
     private Set<PdfService> pdfServices;
 
     @Override
-    public String convertToPdf(@NotNull final String path, @NotNull final PdfTemplate pdfTemplate) {
+    public String convertToPdf(@NotNull final String path, @NotNull final PdfType pdfType) {
         return pdfServices.stream()
-                .filter(pdfService -> pdfService.keyOfImplementation() == pdfTemplate)
+                .filter(pdfService -> pdfService.keyOfImplementation() == pdfType)
                 .findFirst()
                 .orElseThrow(() -> new ConvertingException("There is no such implementation"))
                 .convertToPdf(excelWorkerService.excelData(path));

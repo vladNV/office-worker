@@ -12,17 +12,7 @@ import java.util.stream.IntStream;
 
 public class PdfBuilderUtils {
 
-    static void addNewLines(Document document, int count) {
-        IntStream.range(0, count).forEach(i -> {
-            try {
-                document.add(Chunk.NEWLINE);
-            } catch (DocumentException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    static Chunk generateSpaces(int count) {
+    public static Chunk generateSpaces(int count) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < count; i++) {
             sb.append(StringUtils.SPACE);
@@ -30,7 +20,7 @@ public class PdfBuilderUtils {
         return new Chunk(sb.toString());
     }
 
-    static Font buildFont(int size, int style) {
+    public static Font buildFont(int size, int style) {
         Font font = new Font();
         font.setSize(size);
         font.setStyle(style);
@@ -38,33 +28,34 @@ public class PdfBuilderUtils {
         return font;
     }
 
-    static void changeFont(Font font, int size) {
+    public static void changeFont(Font font, int size) {
         changeFont(font, size, BaseColor.BLACK, Font.NORMAL);
     }
 
-    static void changeFont(Font font, int size, BaseColor color) {
+    public static void changeFont(Font font, int size, BaseColor color) {
         changeFont(font, size, color, Font.NORMAL);
     }
 
-    static void changeFont(Font font, int size, BaseColor color, int style) {
+    public static void changeFont(Font font, int size, BaseColor color, int style) {
         font.setSize(size);
         font.setColor(color);
         font.setStyle(style);
     }
 
-    static Paragraph buildParagraph(String text) {
+    public static Paragraph buildParagraph(String text) {
         return new Paragraph(text);
     }
 
-    static Paragraph buildParagraph(String text, Font font) {
+    public static Paragraph buildParagraph(String text, Font font) {
         return new Paragraph(text, font);
     }
 
-    static Paragraph buildParagraph(String text, Font font, int alignment) {
+    public static Paragraph buildParagraph(String text, Font font, int alignment) {
         Paragraph paragraph = new Paragraph(text, font);
         paragraph.setAlignment(alignment);
 
         return paragraph;
     }
+
 
 }
