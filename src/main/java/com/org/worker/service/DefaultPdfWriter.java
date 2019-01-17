@@ -133,10 +133,10 @@ public class DefaultPdfWriter implements PdfService {
     }
 
     private PdfPTable allocatePdfTableSize(int length) {
-        float rowSize = 1200f;
+        float rowWidth = 1200f;
         float[] sizes = new float[length];
 
-        Arrays.fill(sizes, rowSize / length);
+        Arrays.fill(sizes, rowWidth / length);
 
         PdfPTable table = new PdfPTable(sizes);
         table.setWidthPercentage(100);
