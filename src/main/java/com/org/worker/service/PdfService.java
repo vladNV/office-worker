@@ -6,8 +6,6 @@ import com.org.worker.service.model.PdfTemplate;
 import java.util.List;
 
 public interface PdfService {
-    String DEFAULT = "default";
-
     /**
      * Returns path to downloading of pdf
      * @param sheetList excel values

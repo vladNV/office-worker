@@ -67,7 +67,7 @@ public class FileRepositoryImpl implements FileRepository {
     }
 
     private Path providePathToPdfFolder(String filename) {
-        return Paths.get(properties.getPdf() + File.separator + filename);
+        return Paths.get(properties.getPdfFolder() + File.separator + filename);
     }
 
     private Path providePathToTmpFolder() {

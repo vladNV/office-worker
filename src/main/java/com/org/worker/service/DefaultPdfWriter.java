@@ -10,8 +10,12 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.org.worker.config.FileSystemManager;
 import com.org.worker.config.PdfProperties;
@@ -31,7 +35,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -39,6 +42,9 @@ import java.util.stream.Stream;
 @Slf4j
 @Component
 public class DefaultPdfWriter implements PdfService {
+    private static final int NUMBER_ROWS_AT_FIRST_PAGE = 27;
+    private static final int NUMBER_ROWS_IN_TABLE = 42;
+
     @Autowired
     private FileSystemManager fileSystemManager;
 
@@ -48,19 +54,18 @@ public class DefaultPdfWriter implements PdfService {
     @Override
     public String convertToPdf(List<ExcelSheet> sheetList) {
         String filename = FileUtils.generateName(FileUtils.PDF_VALUE);
-        String path = fileSystemManager.getPdf() + File.separator + filename;
+        String path = fileSystemManager.getPdfFolder() + File.separator + filename;
         Document document = new Document(PageSize.A4);
         try {
-            PdfWriter pdfWriter = setupWriter(document, path);
-            write(
-                    getRows(ExcelSheetStyle.SINGLE_COLUMN, sheetList),
-                    ConverterUtils.toTable(getRows(ExcelSheetStyle.TABLE, sheetList), FileUtils.SEPARATOR),
-                    document, pdfWriter
-            );
-        } catch (DocumentException e) {
+            setupWriter(document, path);
+            List<String> text = getRows(ExcelSheetStyle.SINGLE_COLUMN, sheetList);
+            write(text, ConverterUtils.toTable(getRows(ExcelSheetStyle.TABLE, sheetList), FileUtils.SEPARATOR), document);
+            document.close();
+            writeNumbering(path, text);
+        } catch (DocumentException | IOException e) {
             throw new ConvertingException("Could not convert file");
         }
-        document.close();
+
         return filename;
     }
 
@@ -76,13 +81,11 @@ public class DefaultPdfWriter implements PdfService {
     }
 
 
-    private PdfWriter setupWriter(Document document, String path) {
-        LOG.info("About to save data to '{}'", path);
+    private void setupWriter(Document document, String path) {
+        LOG.info("About to setup writer data by '{}' path", path);
         try {
-            PdfWriter pdf = PdfWriter.getInstance(document, new FileOutputStream(path));
-            pdf.setPdfVersion(PdfWriter.PDF_VERSION_1_7);
+            PdfWriter.getInstance(document, new FileOutputStream(path)).setPdfVersion(PdfWriter.PDF_VERSION_1_7);
             document.open();
-            return pdf;
         } catch (DocumentException | FileNotFoundException e) {
             throw new FileWriterException("Error occurred while opening document", e);
         }
@@ -98,25 +101,33 @@ public class DefaultPdfWriter implements PdfService {
         }
     }
 
-    private void writeTable(Document document, String[][] table, Chunk under1,
-                            String sertificate, PdfWriter writer) throws DocumentException {
+    private void writeTable(Document document, String[][] table, Chunk under1, String sertificate) throws DocumentException {
         PdfPTable headers = allocatePdfTableSize(table[0].length);
         writeHeaders(headers, table[0], getTableFont());
         document.add(headers);
 
-        int currentPage = writer.getCurrentPageNumber();
+        boolean isFirstPageWithTable = true;
+        int rowsAtPage = 0;
         for (int i = 1; i < table.length; i++) {
-            int pageNumber = writer.getCurrentPageNumber();
-            if (currentPage != pageNumber) {
-                addPageTable(sertificate, writer.getCurrentPageNumber(), document);
-                currentPage = pageNumber;
+            if (isFirstPageWithTable && NUMBER_ROWS_AT_FIRST_PAGE == rowsAtPage) {
+                PdfBuilderUtils.addNewLines(document, 6);
+                isFirstPageWithTable = false;
+                rowsAtPage = 0;
             }
+
+            if (rowsAtPage == NUMBER_ROWS_IN_TABLE) {
+                PdfBuilderUtils.addNewLines(document, 6);
+            }
+
             PdfPTable pdfPTable = allocatePdfTableSize(table[0].length);
             for (int j = 0; j < table[i].length; j++) {
                 pdfPTable.addCell(new PdfPCell(new Phrase(table[i][j])));
             }
+
+            ++rowsAtPage;
             document.add(pdfPTable);
         }
+
         document.add(under1);
         document.add(Chunk.NEWLINE);
     }
@@ -149,6 +160,27 @@ public class DefaultPdfWriter implements PdfService {
         return font;
     }
 
+    private void addFirstPagePhrase(Document document, Font font, String sertificate, String date) throws DocumentException {
+        PdfBuilderUtils.changeFont(font, 12);
+
+        document.add(PdfBuilderUtils.buildParagraph(
+                "Номер сертификата "
+                        + sertificate
+                        + "  Дата калибровки  "
+                        + date
+                        + " "
+                        + "Страница  "
+                        + "pdfWriter"
+                        + "   из   {sizeOfPage}", font));
+
+        PdfBuilderUtils.changeFont(font, 10);
+        document.add(PdfBuilderUtils.buildParagraph("Certificate number       ____________   "
+                + "Date when celebrated"
+                + "      ____________   Page      ____ of ____", font));
+
+        document.add(Chunk.NEWLINE);
+    }
+
     private void addPageTable(String sertificate, int pageNumber, Document document) throws DocumentException {
         Font font = getFont();
         Font font2 = getFont();
@@ -164,11 +196,11 @@ public class DefaultPdfWriter implements PdfService {
         c1.addElement(new Phrase("Номер сертификата  " + sertificate, font));
 
         font2.setStyle(Font.NORMAL);
-        Phrase ph2 = new Phrase();
-        ph2.add(new Phrase("Certificate number ______________________________", font2));
+        Phrase ph2 = new Phrase("Certificate number ______________________________", font2);
         Chunk ch4 = generateSpaces(35);
         ch4.setUnderline(0.2f,-2);
         ph2.add(ch4);
+
         c1.addElement(ph2);
         c1.addElement(Chunk.NEWLINE);
 
@@ -184,7 +216,7 @@ public class DefaultPdfWriter implements PdfService {
     }
 
     @Deprecated
-    private void write(List<String> text, String[][] table, Document document, PdfWriter pdfWriter)
+    private void write(List<String> text, String[][] table, Document document)
             throws DocumentException {
         Font font = getFont();
         PdfBuilderUtils.changeFont(font, 20, BaseColor.BLUE, Font.BOLD);
@@ -202,25 +234,7 @@ public class DefaultPdfWriter implements PdfService {
         document.add(PdfBuilderUtils.buildParagraph("Calibration certificate", font, Element.ALIGN_CENTER));
         document.add(Chunk.NEWLINE);
 
-
-        PdfBuilderUtils.changeFont(font, 12);
-        document.add(PdfBuilderUtils.buildParagraph(
-                "Номер сертификата "
-                        + text.get(0)
-                        + "  Дата калибровки  "
-                        + text.get(1)
-                        + " "
-                        + "Страница  "
-                        + pdfWriter.getCurrentPageNumber()
-                        + "   из   {sizeOfPage}", font));
-
-        PdfBuilderUtils.changeFont(font, 10);
-        document.add(PdfBuilderUtils.buildParagraph("Certificate number       ____________   "
-                + "Date when celebrated"
-                + "      ____________   Page      ____ of ____", font));
-
-        document.add(Chunk.NEWLINE);
-        document.add(Chunk.NEWLINE);
+        addSpacingAfter(document);
 
         PdfPTable t1 = new PdfPTable(new float[]{250f,750f});
         t1.setWidthPercentage(100);
@@ -385,7 +399,7 @@ public class DefaultPdfWriter implements PdfService {
         font2.setSize(10);
         document.add(PdfBuilderUtils.buildParagraph("Calibration certificate", font2));
 
-        addPageTable(text.get(0), pdfWriter.getCurrentPageNumber(), document);
+        addSpacingAfter(document);
 
         PdfPTable t3 = new PdfPTable(new float[]{300f, 700f});
         t3.setWidthPercentage(100);
@@ -445,7 +459,7 @@ public class DefaultPdfWriter implements PdfService {
         document.add(PdfBuilderUtils.buildParagraph("Calibration results including uncertainty", font));
         document.add(Chunk.NEWLINE);
 
-        writeTable(document, table, under1, text.get(0), pdfWriter);
+        writeTable(document, table, under1, text.get(0));
 
         font.setStyle(Font.ITALIC);
         font.setSize(8);
@@ -460,10 +474,9 @@ public class DefaultPdfWriter implements PdfService {
                 + " conducted according to the “Guide to the expression of uncertainty in"
                 + "measurement” (GUM)", font));
         document.add(under1);
-        document.add(Chunk.NEWLINE);
 
         document.newPage();
-        addPageTable(text.get(0), pdfWriter.getCurrentPageNumber(), document);
+        PdfBuilderUtils.addNewLines(document, 6);
 
         PdfPTable t5 = new PdfPTable(new float[]{400f, 600f});
         t5.setWidthPercentage(100);
@@ -518,6 +531,82 @@ public class DefaultPdfWriter implements PdfService {
         document.add(p15);
     }
 
+    private void writeNumbering(String file, List<String> text) throws IOException, DocumentException {
+        PdfReader pdfReader = new PdfReader(file);
+        int n = pdfReader.getNumberOfPages();
+        PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileOutputStream(file));
+        PdfContentByte pagecontent;
+        Phrase phrase;
+        Font font = getFont();
+        font.setSize(12);
+
+        for (int i = 0; i < n; i++) {
+            if (i == 1) {
+                 phrase = new Phrase(PdfBuilderUtils.buildParagraph(
+                         "Номер сертификата "
+                                 + text.get(0)
+                                 + "  Дата калибровки  "
+                                 + text.get(1)
+                                 + " "
+                                 + "Страница  "
+                                 + i
+                                 + "   из   "
+                                 + n, font));
+                PdfBuilderUtils.changeFont(font, 10);
+                phrase.add(PdfBuilderUtils.buildParagraph("Certificate number       ____________   "
+                        + "Date when celebrated"
+                        + "      ____________   Page      ____ of ____", font));
+            } else {
+                phrase = new Phrase();
+                font.setSize(14);
+
+                Font font2 = getFont();
+                font2.setSize(10);
+
+                PdfPTable t2 = new PdfPTable(new float[]{750f, 250f});
+                t2.setWidthPercentage(100);
+                t2.setSpacingAfter(30f);
+
+                PdfPCell c1 = new PdfPCell();
+                c1.addElement(new Phrase("Номер сертификата  " + text.get(0), font));
+
+                font2.setStyle(Font.NORMAL);
+                Phrase ph2 = new Phrase("Certificate number ______________________________", font2);
+                Chunk ch4 = generateSpaces(35);
+                ch4.setUnderline(0.2f,-2);
+                ph2.add(ch4);
+
+                c1.addElement(ph2);
+                c1.addElement(Chunk.NEWLINE);
+
+                PdfPCell c2 = new PdfPCell();
+                Phrase pagePhrase = new Phrase("Страница " + i + " из " + n, font2);
+                c2.addElement(pagePhrase);
+                c2.addElement(new Phrase("Page ____ of ____", font2));
+
+                phrase.add(Chunk.NEWLINE);
+                t2.addCell(c1);
+                t2.addCell(c2);
+                phrase.add(t2);
+            }
+
+            pagecontent = pdfStamper.getOverContent(++i);
+            ColumnText.showTextAligned(
+                    pagecontent,
+                    Element.ALIGN_LEFT,
+                    new Phrase(),
+                    512, 842, 0);
+        }
+        pdfStamper.close();
+        pdfReader.close();
+    }
+
+    private void addSpacingAfter(Document document) throws DocumentException {
+        Paragraph paragraph = new Paragraph();
+
+        paragraph.setSpacingAfter(121f);
+        document.add(paragraph);
+    }
 
     private Chunk generateSpaces(int count) {
         StringBuilder sb = new StringBuilder();

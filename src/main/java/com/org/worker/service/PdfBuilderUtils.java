@@ -2,11 +2,25 @@ package com.org.worker.service;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.stream.IntStream;
+
 public class PdfBuilderUtils {
+
+    static void addNewLines(Document document, int count) {
+        IntStream.range(0, count).forEach(i -> {
+            try {
+                document.add(Chunk.NEWLINE);
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     static Chunk generateSpaces(int count) {
         StringBuilder sb = new StringBuilder();

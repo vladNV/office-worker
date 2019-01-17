@@ -14,5 +14,5 @@ public class FileSystemManager {
     private String tmp;
 
     @Value("${app.file.pdf}")
-    private String pdf;
+    private String pdfFolder;
 }
