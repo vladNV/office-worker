@@ -20,13 +20,21 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.org.worker.config.PdfProperties;
 import com.org.worker.exception.ConvertingException;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.stream.IntStream;
 
+@Slf4j
 @Component
 public class DefaultPdfPageEventHelper extends PdfPageEventHelper {
+
+    @PostConstruct
+    public void justNotify() {
+      LOG.info("created for " + Thread.currentThread().getName());
+    }
 
     @Autowired
     private PdfProperties pdfProperties;
