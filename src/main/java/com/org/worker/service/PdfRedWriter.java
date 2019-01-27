@@ -10,113 +10,17 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.org.worker.exception.ConvertingException;
-import com.org.worker.exception.FileWriterException;
-import com.org.worker.service.model.ExcelSheet;
-import com.org.worker.service.model.ExcelSheetStyle;
-import com.org.worker.service.model.PdfType;
-import com.org.worker.util.ConverterUtils;
-import com.org.worker.util.FileUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 @Slf4j
 @Component
-public class PdfRedWriter extends AbstractPdfWriter implements PdfService {
-    @Autowired
-    private DefaultPdfPageEventHelper pdfPageEventHelper;
-
+public class PdfRedWriter extends TablePdfWriter {
     @Override
-    public String convertToPdf(List<ExcelSheet> sheetList) {
-        String filename = FileUtils.generateName(FileUtils.PDF_VALUE);
-        Document document = getA4Document();
-        try {
-            PdfWriter pdfWriter = getWriter(document, generatePath(filename));
-            List<String> text = getRowsFromExcelSheet(ExcelSheetStyle.SINGLE_COLUMN, sheetList);
-
-            pdfPageEventHelper.setText(new String[]{text.get(0), text.get(1)});
-            pdfWriter.setPageEvent(pdfPageEventHelper);
-
-            document.open();
-            write(text, ConverterUtils.toTable(getRowsFromExcelSheet(ExcelSheetStyle.TABLE, sheetList), FileUtils.SEPARATOR), document);
-            document.close();
-
-        } catch (DocumentException e) {
-            throw new ConvertingException("Could not convert file");
-        }
-
-        return filename;
-    }
-
-    private PdfWriter getWriter(Document document, String path) {
-        LOG.info("About to setup writer data by '{}' path", path);
-        try {
-            PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(path));
-            pdfWriter.setPdfVersion(PdfWriter.PDF_VERSION_1_7);
-            return pdfWriter;
-        } catch (DocumentException | FileNotFoundException e) {
-            throw new FileWriterException("Error occurred while opening document", e);
-        }
-    }
-
-    @Override
-    public PdfType keyOfImplementation() {
-        return PdfType.PDF_RED;
-    }
-
-    private void writeTable(Document document, String[][] table, Chunk under1) throws DocumentException {
-        PdfPTable pdfTable = allocatePdfTableSize(table[0].length);
-        writeHeaders(pdfTable, table[0], getTableFont());
-
-        for (int i = 1; i < table.length; i++) {
-            for (int j = 0; j < table[i].length; j++) {
-                pdfTable.addCell(new PdfPCell(new Phrase(table[i][j])));
-            }
-        }
-
-        document.add(pdfTable);
-        document.add(under1);
-        document.add(Chunk.NEWLINE);
-    }
-
-    private PdfPTable allocatePdfTableSize(int length) {
-        float rowWidth = 1200f;
-        float[] sizes = new float[length];
-
-        Arrays.fill(sizes, rowWidth / length);
-
-        PdfPTable table = new PdfPTable(sizes);
-        table.setWidthPercentage(100);
-
-        return table;
-    }
-
-    private void writeHeaders(PdfPTable pdfPTable, String[] headers, Font font) {
-        Arrays.stream(headers).forEach(head -> {
-            PdfPCell cell = new PdfPCell();
-            cell.addElement(new Phrase(head, font));
-            pdfPTable.addCell(cell);
-        });
-    }
-
-    private Font getTableFont() {
-        Font font = new Font();
-        font.setSize(12);
-        font.setStyle(Font.BOLD);
-
-        return font;
-    }
-
-    private void write(List<String> text, String[][] table, Document document)
-            throws DocumentException {
+    public void depict(List<String> text, String[][] table, Document document) throws DocumentException {
         Font font = getPdfProperties().getDefaultFont();
         Font font2 = getPdfProperties().getDefaultFont();
 

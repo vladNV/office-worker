@@ -8,6 +8,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -21,23 +22,27 @@ import com.org.worker.config.PdfProperties;
 import com.org.worker.exception.ConvertingException;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.util.stream.IntStream;
+import java.io.IOException;
+
+import static com.org.worker.service.PdfBuilderUtils.nextLine;
 
 @Slf4j
 @Component
 public class DefaultPdfPageEventHelper extends PdfPageEventHelper {
 
-    @PostConstruct
-    public void justNotify() {
-      LOG.info("created for " + Thread.currentThread().getName());
-    }
-
     @Autowired
     private PdfProperties pdfProperties;
+
+    @Value("${img.path.header}")
+    private String headerImagePath;
+
+    @Value("${img.path}")
+    private String imagePath;
 
     private PdfTemplate pdfTemplate;
 
@@ -48,58 +53,161 @@ public class DefaultPdfPageEventHelper extends PdfPageEventHelper {
 
     @Override
     public void onEndPage(PdfWriter writer, Document document) {
-        Font font = pdfProperties.getDefaultFont();
-        font.setSize(11);
-
-        PdfPTable pageTable = new PdfPTable(4);
         try {
-            pageTable.setWidths(new int[]{10, 8, 4, 4});
-            pageTable.setTotalWidth(560);
-            pageTable.getDefaultCell().setFixedHeight(30);
+            int pageNumber = writer.getPageNumber();
+            if (pageNumber == 1) {
+                renderTableOnFirstPage(writer, document);
+                renderImage(document, headerImagePath);
+                return;
+            }
+            renderHeader(writer, document);
+            renderImage(document, imagePath);
+        } catch (DocumentException | IOException e) {
+            throw new ConvertingException(e);
+        }
+    }
+
+    private void renderTableOnFirstPage(PdfWriter writer, Document document) throws DocumentException {
+        PdfPTable table = new PdfPTable(6);
+        table.setWidths(new int[]{2, 7, 7, 4, 1, 2});
+        table.setTotalWidth(document.getPageSize().getWidth() - 12);
+        table.getDefaultCell().setBorderWidth(0);
+        table.getDefaultCell().setFixedHeight(20);
+
+        Font font = pdfProperties.getDefaultFont();
+        font.setSize(12);
+        table.addCell(StringUtils.EMPTY);
+        table.addCell(
+                new Phrase(String.format("Номер сертификата %s", text[0]), font)
+        );
+        table.addCell(
+                new Phrase(String.format("Дата калибровки %s", text[1]), font)
+        );
+        table.addCell(
+                new Phrase("Страница  1    из    ", font)
+        );
+        table.addCell(domainOfTotalPageNumber());
+        table.addCell(StringUtils.EMPTY);
+
+        font = pdfProperties.getDefaultFont();
+        font.setSize(8);
+        table.addCell(StringUtils.EMPTY);
+        table.addCell(
+                new Phrase("Certificate number", font)
+        );
+        table.addCell(
+                new Phrase("Date when celebrated", font)
+        );
+        table.addCell(
+                new Phrase("Page    of   ", font)
+        );
+        table.addCell(StringUtils.EMPTY);
+        table.addCell(StringUtils.EMPTY);
+
+        PdfContentByte canvas = writer.getDirectContent();
+        canvas.beginMarkedContentSequence(PdfName.ARTIFACT);
+        table.writeSelectedRows(0, -1, 0, 550, canvas);
+        canvas.endMarkedContentSequence();
+    }
+
+    private void renderHeader(PdfWriter writer, Document document) {
+        PdfPTable pageTable = new PdfPTable(5);
+        try {
+            pageTable.setTotalWidth(document.getPageSize().getWidth() - 12);
+            pageTable.setWidths(new int[]{3, 12, 4, 1, 2});
             pageTable.getDefaultCell().setBorder(Border.SOLID);
-            pageTable.getDefaultCell().setBorderColor(BaseColor.LIGHT_GRAY);
+            pageTable.getDefaultCell().setBorderColor(BaseColor.BLACK);
             pageTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
 
-            nextLine(pageTable, 4);
+            // first empty row
+            nextLine(pageTable, 5);
 
-            pageTable.addCell(new Phrase("Номер сертификата " + text[0], font));
-            pageTable.addCell(new Phrase("Дата калибровки " + text[1], font));
-            pageTable.addCell(new Phrase(String.format("Страница %d  из  ", writer.getPageNumber()), font));
+            String cerfNum = text[0];
 
-            PdfPCell totalPageCountRu = new PdfPCell(image);
-            totalPageCountRu.setBorder(Border.SOLID);
-            totalPageCountRu.setBorderColor(BaseColor.LIGHT_GRAY);
-            totalPageCountRu.setHorizontalAlignment(Element.ALIGN_LEFT);
-            pageTable.addCell(totalPageCountRu);
+            // second row
+            pageTable.addCell(StringUtils.EMPTY);
 
-            pageTable.addCell(new Phrase("Certificate number " + text[0], font));
-            pageTable.addCell(new Phrase("Date when celebrated " + text[1], font));
-            pageTable.addCell(new Phrase(String.format("Page  %d     of  ", writer.getPageNumber()), font));
+            Font font = pdfProperties.getDefaultFont();
+            font.setSize(14);
+            font.setStyle(Font.BOLD);
+            Phrase cerf = new Phrase("Сертифікат калібрування\n", font);
 
-            PdfPCell totalPageCountEng = new PdfPCell(image);
-            totalPageCountEng.setBorder(Border.SOLID);
-            totalPageCountEng.setBorderColor(BaseColor.LIGHT_GRAY);
-            totalPageCountRu.setHorizontalAlignment(Element.ALIGN_LEFT);
-            pageTable.addCell(totalPageCountEng);
+            font = pdfProperties.getDefaultFont();
+            font.setSize(12);
+            Phrase cerfEn = new Phrase("Calibration certificate", font);
 
-            nextLine(pageTable, 4);
+            Phrase cell = new Phrase();
+            cell.add(cerf);
+            cell.add(cerfEn);
+            pageTable.addCell(cell);
+
+            pageTable.addCell(StringUtils.EMPTY);
+            pageTable.addCell(StringUtils.EMPTY);
+            pageTable.addCell(StringUtils.EMPTY);
+
+            // third row
+            pageTable.addCell(StringUtils.EMPTY);
+
+            font = pdfProperties.getDefaultFont();
+            font.setSize(12);
+            Phrase num = new Phrase(String.format("Номер сертифікату %s\n", cerfNum), font);
+
+            font = pdfProperties.getDefaultFont();
+            font.setSize(8);
+            Phrase numEn = new Phrase("Certificate number", font);
+
+            cell = new Phrase();
+            cell.add(num);
+            cell.add(numEn);
+            pageTable.addCell(cell);
+
+            font = pdfProperties.getDefaultFont();
+            font.setSize(12);
+            Phrase pageOf = new Phrase(String.format("Страница   %d     из \n", writer.getPageNumber()), font);
+
+            font = pdfProperties.getDefaultFont();
+            font.setSize(9);
+            Phrase pageOfEn = new Phrase("Page    of    ", font);
+
+            cell = new Phrase();
+            cell.add(pageOf);
+            cell.add(pageOfEn);
+            pageTable.addCell(cell);
+
+            pageTable.addCell(domainOfTotalPageNumber());
+            pageTable.addCell(StringUtils.EMPTY);
 
             PdfContentByte canvas = writer.getDirectContent();
             canvas.beginMarkedContentSequence(PdfName.ARTIFACT);
-            pageTable.writeSelectedRows(0, -1, 36, document.getPageSize().getHeight(), canvas);
+            pageTable.writeSelectedRows(0, -1, 0, document.getPageSize().getHeight(), canvas);
+
             canvas.endMarkedContentSequence();
+
         } catch (DocumentException e) {
             throw new ConvertingException(e);
         }
     }
 
-    private void nextLine(PdfPTable pdfPTable, int count) {
-        IntStream.range(0, count).forEach(i -> pdfPTable.addCell("\n"));
+    private PdfPCell domainOfTotalPageNumber() {
+        PdfPCell c = new PdfPCell(image);
+        c.setBorder(Border.SOLID);
+        c.setBorderColor(BaseColor.LIGHT_GRAY);
+        c.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        return c;
+    }
+
+    private void renderImage(Document document, String headerImagePath) throws IOException, DocumentException {
+        Image image = Image.getInstance(headerImagePath);
+        image.setAbsolutePosition(0, 0);
+        image.setAlignment(Image.ALIGN_RIGHT);
+        image.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
+        image.setBorder(2);
+        document.add(image);
     }
 
     @Override
     public void onOpenDocument(PdfWriter writer, Document document) {
-        pdfTemplate = writer.getDirectContent().createTemplate(34, 16);
+        pdfTemplate = writer.getDirectContent().createTemplate(12, 16);
         try {
             image = Image.getInstance(pdfTemplate);
             image.setRole(PdfName.ARTIFACT);
@@ -111,13 +219,13 @@ public class DefaultPdfPageEventHelper extends PdfPageEventHelper {
     @Override
     public void onCloseDocument(PdfWriter writer, Document document) {
         Font font = pdfProperties.getDefaultFont();
-        font.setSize(11);
+        font.setSize(12);
 
         int totalLength = String.valueOf(writer.getPageNumber()).length();
         int totalWidth = totalLength * 5;
-        ColumnText.showTextAligned(pdfTemplate, Element.ALIGN_RIGHT,
+        ColumnText.showTextAligned(pdfTemplate, Element.ALIGN_LEFT,
                 new Phrase(String.valueOf(writer.getPageNumber()), font),
-                totalWidth + 3, 3, 0);
+                totalWidth, 1 , 0);
     }
 
 }

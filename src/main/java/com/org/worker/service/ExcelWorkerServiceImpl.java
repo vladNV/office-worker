@@ -4,13 +4,14 @@ import com.org.worker.exception.FileWriterException;
 import com.org.worker.service.model.ExcelSheet;
 import com.org.worker.service.model.ExcelSheetStyle;
 import com.org.worker.util.FileUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -25,9 +26,9 @@ import java.util.Spliterator;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@Slf4j
 @Service
 public class ExcelWorkerServiceImpl implements ExcelWorkerService {
+    private Logger LOG = LoggerFactory.getLogger(ExcelWorkerServiceImpl.class);
 
     @Override
     public List<ExcelSheet> excelData(@NotNull final String path) {
@@ -92,7 +93,6 @@ public class ExcelWorkerServiceImpl implements ExcelWorkerService {
         return StreamSupport.stream(cellSpliterator, false)
                 .map(Object::toString)
                 .map(String::trim)
-                .filter(StringUtils::isNotBlank)
                 .collect(Collectors.joining(FileUtils.SEPARATOR));
     }
 

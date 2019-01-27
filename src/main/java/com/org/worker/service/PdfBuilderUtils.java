@@ -6,6 +6,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.stream.IntStream;
@@ -26,6 +27,16 @@ public class PdfBuilderUtils {
         font.setStyle(style);
 
         return font;
+    }
+
+    public static void forceSpacing(int quantity, Document document) {
+        for (int i = 0; i < quantity; i++) {
+            try {
+                document.add(Chunk.NEWLINE);
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void changeFont(Font font, int size) {
@@ -50,12 +61,25 @@ public class PdfBuilderUtils {
         return new Paragraph(text, font);
     }
 
+
+    public static Paragraph buildParagraph(String text, Font font, float beforeSpacing) {
+        Paragraph paragraph = buildParagraph(text, font);
+        paragraph.setSpacingBefore(beforeSpacing);
+        return paragraph;
+    }
+
     public static Paragraph buildParagraph(String text, Font font, int alignment) {
         Paragraph paragraph = new Paragraph(text, font);
         paragraph.setAlignment(alignment);
 
         return paragraph;
     }
+
+
+    public static void nextLine(PdfPTable pdfPTable, int count) {
+        IntStream.range(0, count).forEach(i -> pdfPTable.addCell("\n"));
+    }
+
 
 
 }

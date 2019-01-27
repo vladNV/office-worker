@@ -4,220 +4,64 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.org.worker.exception.ConvertingException;
-import com.org.worker.exception.FileWriterException;
-import com.org.worker.service.model.ExcelSheet;
-import com.org.worker.service.model.ExcelSheetStyle;
-import com.org.worker.service.model.PdfType;
-import com.org.worker.util.ConverterUtils;
-import com.org.worker.util.FileUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 @Slf4j
 @Component
-public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
-    @Autowired
-    private DefaultPdfPageEventHelper pdfPageEventHelper;
-
-    @Override
-    public String convertToPdf(List<ExcelSheet> sheetList) {
-        String filename = FileUtils.generateName(FileUtils.PDF_VALUE);
-        Document document = getA4Document();
-        try {
-            PdfWriter pdfWriter = getWriter(document, generatePath(filename));
-            List<String> text = getRowsFromExcelSheet(ExcelSheetStyle.SINGLE_COLUMN, sheetList);
-
-            pdfPageEventHelper.setText(new String[]{text.get(0), text.get(1)});
-            pdfWriter.setPageEvent(pdfPageEventHelper);
-
-            document.open();
-            write(text, ConverterUtils.toTable(getRowsFromExcelSheet(ExcelSheetStyle.TABLE, sheetList), FileUtils.SEPARATOR), document);
-            document.close();
-
-        } catch (DocumentException e) {
-            throw new ConvertingException("Could not convert file");
-        }
-
-        return filename;
-    }
-
-    @Override
-    public PdfType keyOfImplementation() {
-        return PdfType.PDF_MAIN;
-    }
+public class DefaultPdfWriter extends TablePdfWriter {
 
 
-    private PdfWriter getWriter(Document document, String path) {
-        LOG.info("About to setup writer data by '{}' path", path);
-        try {
-            PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(path));
-            pdfWriter.setPdfVersion(PdfWriter.PDF_VERSION_1_7);
-            return pdfWriter;
-        } catch (DocumentException | FileNotFoundException e) {
-            throw new FileWriterException("Error occurred while opening document", e);
-        }
-    }
-
-    private void writeTable(Document document, String[][] table, Chunk under1) throws DocumentException {
-        PdfPTable pdfTable = allocatePdfTableSize(table[0].length);
-        writeHeaders(pdfTable, table[0], getTableFont());
-
-        for (int i = 1; i < table.length; i++) {
-            for (int j = 0; j < table[i].length; j++) {
-                pdfTable.addCell(new PdfPCell(new Phrase(table[i][j])));
-            }
-        }
-
-        document.add(pdfTable);
-        document.add(under1);
-        document.add(Chunk.NEWLINE);
-    }
-
-    private PdfPTable allocatePdfTableSize(int length) {
-        float rowWidth = 1200f;
-        float[] sizes = new float[length];
-
-        Arrays.fill(sizes, rowWidth / length);
-
-        PdfPTable table = new PdfPTable(sizes);
-        table.setWidthPercentage(100);
-
-        return table;
-    }
-
-    private void writeHeaders(PdfPTable pdfPTable, String[] headers, Font font) {
-        Arrays.stream(headers).forEach(head -> {
-            PdfPCell cell = new PdfPCell();
-            cell.addElement(new Phrase(head, font));
-            pdfPTable.addCell(cell);
-        });
-    }
-
-    private Font getTableFont() {
-        Font font = new Font();
-        font.setSize(12);
-        font.setStyle(Font.BOLD);
-
-        return font;
-    }
-
-    private void write(List<String> text, String[][] table, Document document)
-            throws DocumentException {
-        Font font = getPdfProperties().getDefaultFont();
+    public void depict(List<String> text, String[][] data, Document document) throws DocumentException {
+        Font font;
         Font font2 = getPdfProperties().getDefaultFont();
 
-        PdfBuilderUtils.changeFont(font, 20, BaseColor.BLUE, Font.BOLD);
+        Paragraph spacing = new Paragraph(NON_BREAKING_SPACE);
+        spacing.setSpacingAfter(230);
+        document.add(spacing);
 
-        document.add(PdfBuilderUtils.buildParagraph("НАЦИОНАЛЬНЫЙ ИНСТИТУТ МЕТРОЛОГИИ", font, Element.ALIGN_CENTER));
+        font = font(12);
+        PdfPTable table = new PdfPTable(2);
+        table.setWidthPercentage(100);
+        table.setWidths(new int[]{250, 750});
+        table.getDefaultCell().setBorderWidth(0);
+        table.getDefaultCell().setFixedHeight(20);
 
-        PdfBuilderUtils.changeFont(font, 16, BaseColor.BLUE, Font.NORMAL);
-        document.add(PdfBuilderUtils.buildParagraph("National metrological institute", font, Element.ALIGN_CENTER));
-        document.add(Chunk.NEWLINE);
+        /* item calibrated */
+        makeDataRowOnFirstPage(
+                "Объект калибровки", "Item calibrated",
+                text.get(2), "Наименование эталона / "
+                        + "средства измерения / идентификация\n"
+                        + "Description of measurement standard / "
+                        + "measuring instrument / identification",
+                table);
 
-        PdfBuilderUtils.changeFont(font,24, BaseColor.BLACK, Font.BOLD);
-        document.add(PdfBuilderUtils.buildParagraph("Сертификат калибровки", font, Element.ALIGN_CENTER));
+        /* customer */
+        makeDataRowOnFirstPage("Заказчик", "Customer",
+                text.get(3),
+                "Информация о заказчике, адрес\nName of the customer, address",
+                table);
 
-        PdfBuilderUtils.changeFont(font, 16, BaseColor.BLACK, Font.NORMAL);
-        document.add(PdfBuilderUtils.buildParagraph("Calibration certificate", font, Element.ALIGN_CENTER));
-        document.add(Chunk.NEWLINE);
 
-        PdfPTable t1 = new PdfPTable(new float[]{250f,750f});
-        t1.setWidthPercentage(100);
-
-        PdfPCell c1 = new PdfPCell();
-        font.setSize(12);
-        c1.addElement(new Phrase("Объект калибровки", font));
-
-        font2.setSize(8);
-        c1.addElement(new Phrase("Item calibrated", font2));
-        c1.setBorder(0);
-        t1.addCell(c1);
-
-        PdfPCell c2 = new PdfPCell();
-        Chunk ch1 = new Chunk(text.get(2), font);
-        ch1.setUnderline(0.2f, -2f);
-        c2.addElement(ch1);
-
-        font.setSize(8);
-        font.setColor(BaseColor.BLUE);
-        Phrase ph1 = new Phrase("Наименование эталона / средства измерения / идентификация", font);
-        ph1.add(Chunk.NEWLINE);
-        ph1.add("Description of measurement standard / measuring instrument / identification");
-        c2.addElement(ph1);
-        c2.setBorder(0);
-        t1.addCell(c2);
-
-        PdfPCell c3 = new PdfPCell();
-        font.setSize(12);
-        font.setColor(BaseColor.BLACK);
-        c3.addElement(new Phrase("Заказчик", font));
-        font2.setSize(8);
-        c3.addElement(new Phrase("Customer", font2));
-        c3.setBorder(0);
-        t1.addCell(c3);
-
-        PdfPCell c4 = new PdfPCell();
-        ch1 = new Chunk(text.get(3), font);
-        ch1.setUnderline(0.2f, -2f);
-        c4.addElement(ch1);
-        font.setSize(8);
-        font.setColor(BaseColor.BLACK);
-        font2.setColor(BaseColor.BLUE);
-        ph1 = new Phrase("Информация о заказчике, адрес", font2);
-        ph1.add(Chunk.NEWLINE);
-        ph1.add("Name of the customer, address");
-        c4.addElement(ph1);
-        c4.setBorder(0);
-        t1.addCell(c4);
-
-        PdfPCell c5 = new PdfPCell();
-        font.setSize(12);
-
-        c5.addElement(new Phrase("Метод калибровки", font));
-        font2.setSize(8);
-        font2.setColor(BaseColor.BLACK);
-        c5.addElement(new Phrase("Method of calibration", font2));
-        c5.setBorder(0);
-        t1.addCell(c5);
-
-        PdfPCell c6 = new PdfPCell();
-        ch1 = new Chunk(text.get(4), font);
-        ch1.setUnderline(0.2f, -2f);
-        c6.addElement(ch1);
-        font.setSize(8);
-        font.setColor(BaseColor.BLUE);
-        ph1 = new Phrase("Наименнование метода / идентификация", font);
-        ph1.add(Chunk.NEWLINE);
-        ph1.add("Name of the method / identification");
-        c6.addElement(ph1);
-        c6.setBorder(0);
-        t1.addCell(c6);
-        document.add(t1);
-        document.add(Chunk.NEWLINE);
-        document.add(Chunk.NEWLINE);
+        /* calibration method */
+        makeDataRowOnFirstPage("Метод калибровки","Method of calibration",
+                text.get(4),
+                "Наименнование метода / идентификация\nName of the method / identification"
+                , table);
+        document.add(table);
 
         PdfBuilderUtils.changeFont(font, 8, BaseColor.BLACK, Font.ITALIC);
         Chunk under1 = PdfBuilderUtils.generateSpaces(155);
         under1.setUnderline(1f, -2.0f);
         document.add(under1);
-        document.add(Chunk.NEWLINE);
-        
-        document.add(Chunk.NEWLINE);
         document.add(PdfBuilderUtils.buildParagraph("Все измерения имеют прослеживаемость к единицам Международной системы SI, "
                 + "которые воспроизводятся национальными эталонам НМИ. В"
                 + "сертификате приведены результаты калибровки согласующиеся с возможностями, содержащимися в Приложении С соглашения MRA, разработанном"
@@ -237,25 +81,26 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         document.add(under1);
         document.add(Chunk.NEWLINE);
 
-        t1 = new PdfPTable(new float[]{400f,100f,600f,250f,200f});
-        t1.setWidthPercentage(100);
+        table = new PdfPTable(new float[]{400f,100f,600f,250f,200f});
+        table.setWidthPercentage(100);
 
         font.setStyle(Font.NORMAL);
         font2.setStyle(Font.NORMAL);
 
-        c1 = new PdfPCell();
+        PdfPCell c1 = new PdfPCell();
         font.setSize(11);
         font.setColor(BaseColor.BLACK);
         c1.addElement(new Phrase("Утверждающая подпись", font));
         font2.setSize(8);
         c1.addElement(new Phrase("Authorising signature", font2));
 
-        c2 = new PdfPCell();
+        PdfPCell c2 = new PdfPCell();
         Paragraph u1 = new Paragraph(PdfBuilderUtils.generateSpaces(14));
+        Chunk ch1 = new Chunk();
         ch1.setUnderline(0.2f, -2.0f);
         c2.addElement(u1);
 
-        c3 = new PdfPCell();
+        PdfPCell c3 = new PdfPCell();
         c3.addElement(new Phrase(text.get(5), font));
 
         Chunk ch2 = PdfBuilderUtils.generateSpaces(41);
@@ -263,25 +108,24 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         c3.addElement(ch2);
         c3.addElement(new Phrase("Ф.И.О и должность / Name and function", font2));
 
-        c4 = new PdfPCell();
+        PdfPCell c4 = new PdfPCell();
         c4.addElement(new Phrase("Дата выдачи", font));
         c4.addElement(new Phrase("Date of issue", font2));
 
-        c5 = new PdfPCell();
+        PdfPCell c5 = new PdfPCell();
         c5.addElement(new Phrase(text.get(6), font));
         Chunk ch3 = PdfBuilderUtils.generateSpaces(21);
         ch3.setUnderline(0.2f, -2);
         c5.addElement(ch3);
 
         Stream.of(c1, c2, c3, c4, c5).forEach(c -> c.setBorder(0));
+        table.addCell(c1);
+        table.addCell(c2);
+        table.addCell(c3);
+        table.addCell(c4);
+        table.addCell(c5);
 
-        t1.addCell(c1);
-        t1.addCell(c2);
-        t1.addCell(c3);
-        t1.addCell(c4);
-        t1.addCell(c5);
-
-        document.add(t1);
+        document.add(table);
         document.add(Chunk.NEWLINE);
         document.add(Chunk.NEWLINE);
         document.add(under1);
@@ -292,17 +136,17 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
                 + "Телефон, факс, е-почта, web- сайт / Phone, fax, e-mail, website", font));
         document.newPage();
 
-        PdfBuilderUtils.changeFont(font, 13, BaseColor.BLACK, Font.BOLD);
-        document.add(PdfBuilderUtils.buildParagraph("Сертификат калибровки", font));
+        PdfBuilderUtils.changeFont(font, 12, BaseColor.BLACK);
 
-        font2.setSize(10);
-        document.add(PdfBuilderUtils.buildParagraph("Calibration certificate", font2));
+        spacing = new Paragraph(NON_BREAKING_SPACE);
+        spacing.setSpacingAfter(55);
+        document.add(spacing);
 
         PdfPTable t3 = new PdfPTable(new float[]{300f, 700f});
         t3.setWidthPercentage(100);
 
+
         PdfPCell c7 = new PdfPCell();
-        font.setSize(12);
         c7.addElement(new Phrase("Калибровка выполнена с помощью", font));
         font2.setSize(8);
         c7.addElement(new Phrase("Calibration is performed by using", font2));
@@ -356,7 +200,7 @@ public class DefaultPdfWriter extends AbstractPdfWriter implements PdfService  {
         document.add(PdfBuilderUtils.buildParagraph("Calibration results including uncertainty", font));
         document.add(Chunk.NEWLINE);
 
-        writeTable(document, table, under1);
+        writeTable(document, data, under1);
 
         font.setStyle(Font.ITALIC);
         font.setSize(8);
