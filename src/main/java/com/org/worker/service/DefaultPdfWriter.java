@@ -18,8 +18,6 @@ import java.util.stream.Stream;
 @Slf4j
 @Component
 public class DefaultPdfWriter extends TablePdfWriter {
-
-
     public void depict(List<String> text, String[][] data, Document document) throws DocumentException {
         Font font;
         Font font2 = getPdfProperties().getDefaultFont();

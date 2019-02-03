@@ -21,7 +21,7 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 @Getter
-public abstract class AbstractPdfWriter implements PdfService {
+abstract class AbstractPdfWriter implements PdfService {
 
     @Autowired
     private FileSystemManager fileSystemManager;

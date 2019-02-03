@@ -10,6 +10,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.org.worker.service.model.PdfType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -324,5 +325,10 @@ public class PdfBlackWriter extends TablePdfWriter {
         ch9.setUnderline(0.2f, -2f);
         p15.add(ch9);
         document.add(p15);
+    }
+
+    @Override
+    public PdfType keyOfImplementation() {
+        return PdfType.PDF_BLACK;
     }
 }
