@@ -9,6 +9,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.org.worker.service.model.Argument;
+import com.org.worker.service.model.PdfType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +20,10 @@ import java.util.stream.Stream;
 @Slf4j
 @Component
 public class DefaultPdfWriter extends TablePdfWriter {
-    public void depict(List<String> text, String[][] data, Document document) throws DocumentException {
+    public void depict(Argument argument, Document document) throws DocumentException {
+        List<String> text = argument.getText();
+        String[][] data = argument.getData();
+
         Font font;
         Font font2 = getPdfProperties().getDefaultFont();
 
@@ -265,5 +270,10 @@ public class DefaultPdfWriter extends TablePdfWriter {
         ch9.setUnderline(0.2f, -2f);
         p15.add(ch9);
         document.add(p15);
+    }
+
+    @Override
+    public PdfType keyOfImplementation() {
+        return PdfType.PDF_MAIN;
     }
 }

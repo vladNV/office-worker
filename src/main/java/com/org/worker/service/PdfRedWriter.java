@@ -10,6 +10,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.org.worker.service.model.Argument;
 import com.org.worker.service.model.PdfType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,9 +22,11 @@ import java.util.stream.Stream;
 @Component
 public class PdfRedWriter extends TablePdfWriter {
     @Override
-    public void depict(List<String> text, String[][] table, Document document) throws DocumentException {
+    public void depict(Argument argument, Document document) throws DocumentException {
         Font font = getPdfProperties().getDefaultFont();
         Font font2 = getPdfProperties().getDefaultFont();
+        List<String> text = argument.getText();
+        String[][] table = argument.getData();
 
         PdfBuilderUtils.changeFont(font, 20, BaseColor.RED, Font.BOLD);
 

@@ -7,9 +7,9 @@ import com.org.worker.config.FileSystemManager;
 import com.org.worker.config.PdfProperties;
 import com.org.worker.exception.ConvertingException;
 import com.org.worker.exception.FileWriterException;
+import com.org.worker.service.model.Argument;
 import com.org.worker.service.model.ExcelSheet;
 import com.org.worker.service.model.ExcelSheetStyle;
-import com.org.worker.service.model.PdfType;
 import com.org.worker.util.ConverterUtils;
 import com.org.worker.util.FileUtils;
 import lombok.Getter;
@@ -48,8 +48,14 @@ abstract class AbstractPdfWriter implements PdfService {
 
         document.open();
         try {
-            depict(text, ConverterUtils.toTable(getRowsFromExcelSheet(ExcelSheetStyle.TABLE, sheetList),
-                    FileUtils.SEPARATOR), document);
+            Argument arg = Argument
+                    .builder()
+                    .text(text)
+                    .data(ConverterUtils
+                            .toTable(getRowsFromExcelSheet(ExcelSheetStyle.TABLE, sheetList),
+                                    FileUtils.SEPARATOR))
+                    .build();
+            depict(arg, document);
         } catch (DocumentException e) {
             throw new ConvertingException(e);
         }
@@ -58,7 +64,7 @@ abstract class AbstractPdfWriter implements PdfService {
         return filename;
     }
 
-    private PdfWriter getWriter(Document document, String path) {
+    PdfWriter getWriter(Document document, String path) {
         try {
             PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(path));
             pdfWriter.setPdfVersion(PdfWriter.PDF_VERSION_1_7);
@@ -68,11 +74,6 @@ abstract class AbstractPdfWriter implements PdfService {
         }
     }
 
-    @Override
-    public PdfType keyOfImplementation() {
-        return PdfType.PDF_MAIN;
-    }
-
-    public abstract void depict(List<String> text, String[][] table, Document document) throws DocumentException;
+    public abstract void depict(Argument argument, Document document) throws DocumentException;
 
 }
