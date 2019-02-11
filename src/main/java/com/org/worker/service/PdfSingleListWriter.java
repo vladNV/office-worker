@@ -9,9 +9,13 @@ import com.org.worker.service.model.ExcelSheet;
 import com.org.worker.service.model.ExcelSheetStyle;
 import com.org.worker.service.model.PdfType;
 import com.org.worker.util.FileUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Slf4j
+@Component
 public class PdfSingleListWriter extends AbstractPdfWriter  {
     @Override
     public String convertToPdf(List<ExcelSheet> sheetList) {
